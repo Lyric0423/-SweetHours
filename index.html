@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>义工时光 Sweet_Hours</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell" aria-label="义工时光轻量版原型">
+      <section class="phone">
+        <div class="status-bar">
+          <span>9:41</span>
+          <span>●●● 5G ▰</span>
+        </div>
+
+        <section class="screen active" id="screen-home" data-screen="home">
+          <header class="home-hero">
+            <div>
+              <h1>义工时光<span>❤</span></h1>
+              <p>用你的空闲，换一种生活体验</p>
+            </div>
+            <button class="city-pill" type="button">上海 · 明近⌄</button>
+          </header>
+
+          <div class="search-row">
+            <label class="search-box">
+              <span>⌕</span>
+              <input id="searchInput" type="search" placeholder="搜索任务、地点或关键词">
+            </label>
+            <button class="filter-button" type="button" id="filterToggle">筛选</button>
+          </div>
+
+          <div class="filter-panel" id="filterPanel" hidden>
+            <button type="button" data-filter="全部" class="active">全部</button>
+            <button type="button" data-filter="陪宠物">陪宠物</button>
+            <button type="button" data-filter="陪伴儿童">陪伴儿童</button>
+            <button type="button" data-filter="简单代办">简单代办</button>
+            <button type="button" data-filter="陪伴聊天">陪伴聊天</button>
+          </div>
+
+          <nav class="tag-rail" aria-label="任务标签">
+            <button class="tag active" type="button" data-filter="全部"><span>✦</span>全部</button>
+            <button class="tag" type="button" data-filter="陪宠物"><span>🐾</span>陪宠物</button>
+            <button class="tag" type="button" data-filter="陪伴儿童"><span>🧒</span>陪伴儿童</button>
+            <button class="tag" type="button" data-filter="简单代办"><span>🛍</span>简单代办</button>
+            <button class="tag" type="button" data-filter="陪伴聊天"><span>💬</span>陪伴聊天</button>
+          </nav>
+
+          <div class="task-list" id="taskList"></div>
+        </section>
+
+        <section class="screen" id="screen-detail" data-screen="detail">
+          <header class="page-header">
+            <button class="icon-button" type="button" data-back>‹</button>
+            <div class="header-actions">
+              <button class="icon-button" type="button">↗</button>
+              <button class="icon-button" type="button">⋯</button>
+            </div>
+          </header>
+          <div class="detail-scroll">
+            <img class="detail-image" id="detailImage" alt="">
+            <div class="detail-body">
+              <div class="detail-title-row">
+                <h2 id="detailTitle"></h2>
+                <button class="bookmark" type="button" id="bookmarkButton">☆</button>
+              </div>
+              <div class="reward-line">
+                <span>报酬</span>
+                <strong id="detailReward"></strong>
+                <em id="detailRewardType"></em>
+              </div>
+              <div class="info-grid">
+                <p id="detailTime"></p>
+                <p id="detailPlace"></p>
+              </div>
+              <article class="publisher-card">
+                <span class="badge">发布者</span>
+                <img id="detailAvatar" alt="">
+                <div>
+                  <strong id="detailPublisher"></strong>
+                  <p><span class="verified">实名认证</span> 信用分 <b id="detailScore"></b></p>
+                </div>
+                <small id="detailStats"></small>
+              </article>
+              <p class="description" id="detailDescription"></p>
+              <div class="chips" id="detailChips"></div>
+              <div class="map-card">
+                <div class="map-pin">●</div>
+                <p id="detailMapText"></p>
+              </div>
+            </div>
+          </div>
+          <footer class="action-footer">
+            <button class="quiet-action" type="button" id="favoriteToggle">☆<span>收藏</span></button>
+            <button class="primary-action" type="button" id="applyButton">申请帮忙</button>
+          </footer>
+        </section>
+
+        <section class="screen" id="screen-publish" data-screen="publish">
+          <header class="page-title">
+            <button class="icon-button" type="button" data-nav="home">‹</button>
+            <h2>发布任务</h2>
+          </header>
+          <div class="stepper" aria-label="发布步骤">
+            <span class="done">1 选择类型</span>
+            <span class="active">2 填写信息</span>
+            <span>3 发布</span>
+          </div>
+          <form class="publish-form" id="publishForm">
+            <fieldset>
+              <legend>选择任务类型</legend>
+              <div class="type-grid">
+                <label><input type="radio" name="type" value="陪宠物" checked><span>🐾 陪宠物</span></label>
+                <label><input type="radio" name="type" value="陪伴儿童"><span>🧒 陪伴儿童</span></label>
+                <label><input type="radio" name="type" value="简单代办"><span>🛍 简单代办</span></label>
+                <label><input type="radio" name="type" value="陪伴聊天"><span>💬 陪伴聊天</span></label>
+              </div>
+            </fieldset>
+            <label>任务标题<input name="title" maxlength="30" required placeholder="例如：遛狗1小时（中型犬）"></label>
+            <label>详细描述<textarea name="description" maxlength="300" required placeholder="请描述时间、地点、具体要求"></textarea></label>
+            <div class="two-col">
+              <label>时间<input name="time" required placeholder="今天 16:00"></label>
+              <label>时长<input name="duration" required placeholder="1小时"></label>
+            </div>
+            <label>地点<input name="place" required placeholder="静安区南京西路附近"></label>
+            <fieldset>
+              <legend>报酬形式</legend>
+              <div class="pay-options">
+                <label><input type="radio" name="payType" value="现金" checked><span>现金</span></label>
+                <label><input type="radio" name="payType" value="礼物"><span>礼物</span></label>
+                <label><input type="radio" name="payType" value="请吃饭"><span>请吃饭</span></label>
+                <label><input type="radio" name="payType" value="技能交换"><span>技能交换</span></label>
+              </div>
+            </fieldset>
+            <label>报酬内容<input name="reward" required placeholder="¥30 / 请吃饭 / 猫粮一包"></label>
+            <label class="upload-box">上传照片（选填）<span>＋</span></label>
+            <button class="primary-action full" type="submit">发布任务</button>
+          </form>
+        </section>
+
+        <section class="screen" id="screen-chat" data-screen="chat">
+          <header class="chat-header">
+            <button class="icon-button" type="button" data-nav="home">‹</button>
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80" alt="小丹方">
+            <div>
+              <h2>小丹方</h2>
+              <p>在线 ●</p>
+            </div>
+            <button class="icon-button more" type="button">⋯</button>
+          </header>
+          <div class="safety-banner">请文明沟通，注意人身与财产安全 ›</div>
+          <div class="messages">
+            <time>10:20</time>
+            <p class="bubble other">你好呀～感谢你的申请，可以简单介绍一下你自己吗？</p>
+            <time>10:22</time>
+            <p class="bubble mine">好的！我平时很喜欢狗狗，也经常帮朋友遛狗，时间上没问题，附近有空 😊</p>
+            <time>10:23</time>
+            <p class="bubble other">太棒了！那我们约在小区门口见面吧，我把牵引绳和零食给你～</p>
+            <time>10:24</time>
+            <p class="bubble mine small">好的，没问题～</p>
+            <time>10:25</time>
+            <p class="voice other">▶ 6"</p>
+          </div>
+          <div class="chat-composer">
+            <button type="button">🎙</button>
+            <input placeholder="输入消息...">
+            <button type="button">☺</button>
+            <button type="button">＋</button>
+          </div>
+          <div class="quick-actions">
+            <button type="button">📍 发送位置</button>
+            <button type="button">🖼 发送图片</button>
+            <button type="button">☎ 联系方式</button>
+          </div>
+        </section>
+
+        <section class="screen" id="screen-tasks" data-screen="tasks">
+          <header class="page-title">
+            <h2>我的任务</h2>
+          </header>
+          <div class="tabs">
+            <button class="active" type="button">我发布的</button>
+            <button type="button">我申请的</button>
+          </div>
+          <div class="status-tabs">
+            <button class="active" type="button">全部</button>
+            <button type="button">申请中</button>
+            <button type="button">进行中</button>
+            <button type="button">已完成</button>
+            <button type="button">已取消</button>
+          </div>
+          <div class="my-task-list" id="myTaskList"></div>
+        </section>
+
+        <section class="screen" id="screen-profile" data-screen="profile">
+          <header class="profile-hero">
+            <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=200&q=80" alt="小丸子">
+            <div>
+              <h2>小丸子</h2>
+              <p>可发布者 / 义工切换</p>
+            </div>
+          </header>
+          <section class="score-card">
+            <div><span>信用分</span><strong>4.8</strong><p>★★★★★</p></div>
+            <div><span>完成任务</span><strong>23</strong></div>
+            <div><span>好评率</span><strong>98%</strong></div>
+            <div><span>被收藏</span><strong>16</strong></div>
+          </section>
+          <section class="medal-card">
+            <h3>我的勋章 <button type="button">全部 ›</button></h3>
+            <div class="medals">
+              <span>🏅 新手上路</span>
+              <span>🎯 热心助人</span>
+              <span>⭐ 五星好评</span>
+              <span>🌈 阳光达人</span>
+            </div>
+          </section>
+          <nav class="profile-list">
+            <button type="button">💬 我的评价 <span>›</span></button>
+            <button type="button">⇄ 身份切换 <em>当前：义工</em></button>
+            <button type="button">☑ 实名认证 <em>已认证</em></button>
+            <button type="button">🛡 安全中心 <span>›</span></button>
+            <button type="button">？ 帮助与反馈 <span>›</span></button>
+            <button type="button">⚙ 设置 <span>›</span></button>
+          </nav>
+          <section class="trust-strip">
+            <h3>安全与信任</h3>
+            <div>
+              <span>实名认证</span>
+              <span>平台安全提示</span>
+              <span>一键举报/拉黑</span>
+              <span>互评机制</span>
+            </div>
+            <p>平台仅提供信息中介服务，请勿发布或参与涉及医疗、专业服务、长期托管等任务。</p>
+          </section>
+        </section>
+
+        <nav class="bottom-nav" aria-label="底部导航">
+          <button class="active" type="button" data-nav="home">⌂<span>首页</span></button>
+          <button type="button" data-nav="publish">＋<span>发布</span></button>
+          <button type="button" data-nav="chat">☵<span>消息</span><em>2</em></button>
+          <button type="button" data-nav="profile">♙<span>我的</span></button>
+        </nav>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
